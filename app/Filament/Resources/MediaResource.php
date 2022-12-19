@@ -23,7 +23,38 @@ class MediaResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('model_type')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('model_id')
+                    ->required(),
+                Forms\Components\TextInput::make('uuid')
+                    ->maxLength(36),
+                Forms\Components\TextInput::make('collection_name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('file_name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('mime_type')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('disk')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('conversions_disk')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('size')
+                    ->required(),
+                Forms\Components\TextInput::make('manipulations')
+                    ->required(),
+                Forms\Components\TextInput::make('custom_properties')
+                    ->required(),
+                Forms\Components\TextInput::make('responsive_images')
+                    ->required(),
+                Forms\Components\TextInput::make('order_column'),
             ]);
     }
 
@@ -31,7 +62,24 @@ class MediaResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('model_type'),
+                Tables\Columns\TextColumn::make('model_id'),
+                Tables\Columns\TextColumn::make('uuid'),
+                Tables\Columns\TextColumn::make('collection_name'),
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('file_name'),
+                Tables\Columns\TextColumn::make('mime_type'),
+                Tables\Columns\TextColumn::make('disk'),
+                Tables\Columns\TextColumn::make('conversions_disk'),
+                Tables\Columns\TextColumn::make('size'),
+                Tables\Columns\TextColumn::make('manipulations'),
+                Tables\Columns\TextColumn::make('custom_properties'),
+                Tables\Columns\TextColumn::make('responsive_images'),
+                Tables\Columns\TextColumn::make('order_column'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -42,8 +90,8 @@ class MediaResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
     

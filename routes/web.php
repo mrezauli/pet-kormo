@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+//Route::get('admin', \Filament\Http\Livewire\Auth\Login::class)->name('login');

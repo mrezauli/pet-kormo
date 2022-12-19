@@ -23,7 +23,10 @@ class CategoryJobResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('job_id')
+                    ->required(),
+                Forms\Components\TextInput::make('category_id')
+                    ->required(),
             ]);
     }
 
@@ -31,10 +34,15 @@ class CategoryJobResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('job_id'),
+                Tables\Columns\TextColumn::make('category_id'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                //
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -42,8 +50,6 @@ class CategoryJobResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
             ]);
     }
     
@@ -63,12 +69,4 @@ class CategoryJobResource extends Resource
             'edit' => Pages\EditCategoryJob::route('/{record}/edit'),
         ];
     }    
-    
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-    }
 }

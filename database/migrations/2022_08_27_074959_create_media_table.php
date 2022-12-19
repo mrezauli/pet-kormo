@@ -30,7 +30,7 @@ class CreateMediaTable extends Migration
             $table->json('responsive_images');
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
-
+            $table->softDeletes();
             $table->index(['model_type', 'model_id']);
         });
     }

@@ -16,6 +16,7 @@ class CreateCategoryJobTable extends Migration
         Schema::create('category_job', function (Blueprint $table) {
             $table->unsignedInteger('job_id')->index('job_id_fk_476513');
             $table->unsignedInteger('category_id')->index('category_id_fk_476513');
+            $table->timestamps();
         });
     }
 

@@ -23,7 +23,9 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -31,7 +33,13 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->dateTime(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -42,8 +50,8 @@ class CategoryResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
     

@@ -23,7 +23,25 @@ class JobResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('location_id')
+                    ->required(),
+                Forms\Components\TextInput::make('company_id')
+                    ->required(),
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('short_description')
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('full_description'),
+                Forms\Components\Textarea::make('requirements'),
+                Forms\Components\TextInput::make('job_nature')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('address')
+                    ->maxLength(255),
+                Forms\Components\Toggle::make('top_rated'),
+                Forms\Components\TextInput::make('salary')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -31,7 +49,23 @@ class JobResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('location_id'),
+                Tables\Columns\TextColumn::make('company_id'),
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('short_description'),
+                Tables\Columns\TextColumn::make('full_description'),
+                Tables\Columns\TextColumn::make('requirements'),
+                Tables\Columns\TextColumn::make('job_nature'),
+                Tables\Columns\TextColumn::make('address'),
+                Tables\Columns\IconColumn::make('top_rated')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('salary'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->dateTime(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -42,8 +76,8 @@ class JobResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
     
