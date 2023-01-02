@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
         //Category::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'name' => 'dev',
-            'email' => 'dev@dev.com',
+            'name' => 'Root User :: Developer',
+            'email' => 'super@admin.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('Pa$$w0rd!'), // password
+            'password' => Hash::make('Pa$$w0rd!'), // Pa$$w0rd!
             'remember_token' => Str::random(10),
         ]);
     }

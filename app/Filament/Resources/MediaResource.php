@@ -25,27 +25,27 @@ class MediaResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('model_type')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(50),
                 Forms\Components\TextInput::make('model_id')
                     ->required(),
                 Forms\Components\TextInput::make('uuid')
                     ->maxLength(36),
                 Forms\Components\TextInput::make('collection_name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(50),
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(50),
                 Forms\Components\TextInput::make('file_name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(50),
                 Forms\Components\TextInput::make('mime_type')
-                    ->maxLength(255),
+                    ->maxLength(1),
                 Forms\Components\TextInput::make('disk')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(10),
                 Forms\Components\TextInput::make('conversions_disk')
-                    ->maxLength(255),
+                    ->maxLength(10),
                 Forms\Components\TextInput::make('size')
                     ->required(),
                 Forms\Components\TextInput::make('manipulations')
@@ -79,6 +79,8 @@ class MediaResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime(),
             ])
             ->filters([

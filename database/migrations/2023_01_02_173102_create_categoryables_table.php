@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryJobTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +14,11 @@ class CreateCategoryJobTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_job', function (Blueprint $table) {
-            $table->unsignedInteger('job_id')->index('job_id_fk_476513');
-            $table->unsignedInteger('category_id')->index('category_id_fk_476513');
+        Schema::create('categoryables', function (Blueprint $table) {
+            $table->foreignIdFor(Category::class)->nullable();
+            $table->morphs('categoryable');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateCategoryJobTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_job');
+        Schema::dropIfExists('categoryables');
     }
-}
+};

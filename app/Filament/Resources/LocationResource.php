@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\LocationResource\RelationManagers\JobsRelationManager;
 use App\Filament\Resources\LocationResource\Pages;
 use App\Filament\Resources\LocationResource\RelationManagers;
 use App\Models\Location;
@@ -25,7 +26,7 @@ class LocationResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(50),
             ]);
     }
 
@@ -54,14 +55,15 @@ class LocationResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
+            JobsRelationManager::class
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -70,8 +72,8 @@ class LocationResource extends Resource
             'view' => Pages\ViewLocation::route('/{record}'),
             'edit' => Pages\EditLocation::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

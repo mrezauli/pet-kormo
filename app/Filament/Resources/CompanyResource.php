@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CompanyResource\Pages;
 use App\Filament\Resources\CompanyResource\RelationManagers;
+use App\Filament\Resources\CompanyResource\RelationManagers\JobsRelationManager;
 use App\Models\Company;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -25,7 +26,7 @@ class CompanyResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(50),
             ]);
     }
 
@@ -54,14 +55,15 @@ class CompanyResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
+            JobsRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -70,8 +72,8 @@ class CompanyResource extends Resource
             'view' => Pages\ViewCompany::route('/{record}'),
             'edit' => Pages\EditCompany::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
