@@ -19,6 +19,16 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 10 ? 'success' : 'primary';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -54,14 +64,14 @@ class CategoryResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -70,8 +80,8 @@ class CategoryResource extends Resource
             'view' => Pages\ViewCategory::route('/{record}'),
             'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

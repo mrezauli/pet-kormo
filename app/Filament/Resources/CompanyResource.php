@@ -20,6 +20,16 @@ class CompanyResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 10 ? 'success' : 'primary';
+    }
+
     public static function form(Form $form): Form
     {
         return $form

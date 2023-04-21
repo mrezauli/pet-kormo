@@ -8,12 +8,15 @@ use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\JobResource\Pages;
 use App\Filament\Resources\Traits\HasCategories;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\JobResource\RelationManagers;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class JobResource extends Resource
 {
@@ -21,6 +24,16 @@ class JobResource extends Resource
     protected static ?string $model = Job::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 10 ? 'success' : 'primary';
+    }
 
     public static function form(Form $form): Form
     {
@@ -46,6 +59,7 @@ class JobResource extends Resource
                 Select::make('companyId')
                     ->relationship('company', 'name')->required(),
                 self::formCategoriesField(), //you can add of course extra settings which you need in given resource
+                SpatieMediaLibraryFileUpload::make('attachment')->collection('attachments'),
             ]);
     }
 
@@ -62,12 +76,6 @@ class JobResource extends Resource
                 Tables\Columns\IconColumn::make('top_rated')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('salary'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime(),
                 Tables\Columns\TextColumn::make('location.name'),
                 Tables\Columns\TextColumn::make('company.name'),
                 self::categoriesColumn(),
@@ -78,6 +86,9 @@ class JobResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Action::make('download job ad')
+                    ->action(fn (Job $record) => response()->download($record->getFirstMediaPath('attachments')))
+                    ->color('warning')->size('lg')->icon('heroicon-o-document-download')
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
