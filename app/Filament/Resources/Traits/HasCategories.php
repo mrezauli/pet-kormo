@@ -42,15 +42,16 @@ trait HasCategories
                     $record->categories()->{$data['action']}($data['categories']);
                 }
             })
+            ->icon('heroicon-o-color-swatch')
             ->form([
                 Grid::make()
                     ->schema([
                         Select::make('action')
                             ->label('For selected records')
                             ->options([
-                                'attach' => 'add',
-                                'detach' => 'remove',
-                                'sync' => 'overwrite',
+                                'attach' => 'Add',
+                                'detach' => 'Remove',
+                                'sync' => 'Overwrite',
                             ])
                             ->default('sync')
                             ->required(),

@@ -12,7 +12,8 @@
         "laravel/framework": "^10.0",
         "laravel/passport": "^11.0",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "solution-forest/filament-tree": "^1.0"
     },
     "require-dev": {
         "doctrine/dbal": "^3.0",

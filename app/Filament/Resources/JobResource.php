@@ -23,7 +23,7 @@ class JobResource extends Resource
     use HasCategories;
     protected static ?string $model = Job::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-finger-print';
 
     protected static function getNavigationBadge(): ?string
     {
