@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CompanyResource\Pages;
 use App\Filament\Resources\CompanyResource\RelationManagers;
-use App\Filament\Resources\CompanyResource\RelationManagers\JobsRelationManager;
 use App\Models\Company;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -45,12 +44,6 @@ class CompanyResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -70,7 +63,6 @@ class CompanyResource extends Resource
     {
         return [
             //
-            JobsRelationManager::class,
         ];
     }
 
