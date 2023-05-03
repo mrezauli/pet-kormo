@@ -17,7 +17,12 @@ class RequirementResource extends Resource
 {
     protected static ?string $model = Requirement::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-check';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -53,14 +58,14 @@ class RequirementResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -69,8 +74,8 @@ class RequirementResource extends Resource
             'view' => Pages\ViewRequirement::route('/{record}'),
             'edit' => Pages\EditRequirement::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

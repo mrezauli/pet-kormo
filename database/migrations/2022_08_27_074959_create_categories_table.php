@@ -18,6 +18,8 @@ class CreateCategoriesTable extends Migration
             $table->string('name', 50);
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->integer('order')->nullable()->default(0);
         });
     }
 

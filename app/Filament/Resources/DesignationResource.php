@@ -17,7 +17,12 @@ class DesignationResource extends Resource
 {
     protected static ?string $model = Designation::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-sort-descending';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -54,14 +59,14 @@ class DesignationResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -70,8 +75,8 @@ class DesignationResource extends Resource
             'view' => Pages\ViewDesignation::route('/{record}'),
             'edit' => Pages\EditDesignation::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

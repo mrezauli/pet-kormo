@@ -17,7 +17,12 @@ class GradeResource extends Resource
 {
     protected static ?string $model = Grade::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -54,14 +59,14 @@ class GradeResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -70,8 +75,8 @@ class GradeResource extends Resource
             'view' => Pages\ViewGrade::route('/{record}'),
             'edit' => Pages\EditGrade::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

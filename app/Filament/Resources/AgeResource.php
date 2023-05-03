@@ -17,7 +17,12 @@ class AgeResource extends Resource
 {
     protected static ?string $model = Age::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -53,14 +58,14 @@ class AgeResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -69,8 +74,8 @@ class AgeResource extends Resource
             'view' => Pages\ViewAge::route('/{record}'),
             'edit' => Pages\EditAge::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
