@@ -8,6 +8,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
+use JeffGreco13\FilamentBreezy\Http\Livewire\Auth\Login;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -86,7 +87,8 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            'login' => \Filament\Http\Livewire\Auth\Login::class,
+            //'login' => \Filament\Http\Livewire\Auth\Login::class,
+            'login' => Login::class,
         ],
     ],
 

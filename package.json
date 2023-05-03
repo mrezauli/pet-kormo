@@ -13,5 +13,8 @@
         "tailwindcss": "^3.3.1",
         "tippy.js": "^6.3.7",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "croppie": "^2.6.5"
     }
 }

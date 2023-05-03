@@ -2,16 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AgeResource\Pages;
-use App\Filament\Resources\AgeResource\RelationManagers;
 use App\Models\Age;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\AgeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use JosefBehr\FilamentSpatieMediaLibraryCroppie\Components\SpatieMediaLibraryCroppie;
 
 class AgeResource extends Resource
 {
@@ -30,6 +30,11 @@ class AgeResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('years')
                     ->required(),
+                SpatieMediaLibraryCroppie::make('image')
+                    ->boundaryWidth('100%')
+                    ->boundaryHeight('600')
+                    ->viewportWidth('300')
+                    ->viewportHeight('300'),
             ]);
     }
 
