@@ -30,11 +30,6 @@ class AgeResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('years')
                     ->required(),
-                SpatieMediaLibraryCroppie::make('image')
-                    ->boundaryWidth('100%')
-                    ->boundaryHeight('600')
-                    ->viewportWidth('300')
-                    ->viewportHeight('300'),
             ]);
     }
 
