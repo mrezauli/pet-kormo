@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
-use App\Filament\Pages\ProfilePhoto;
-use Filament\Navigation\UserMenuItem;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

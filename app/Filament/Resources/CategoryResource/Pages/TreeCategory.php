@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\CategoryResource\Pages;
 
-use Yemenpoint\FilamentTree\TreePage;
 use App\Filament\Resources\CategoryResource;
 use App\Models\Category;
+use Yemenpoint\FilamentTree\TreePage;
 
 class TreeCategory extends TreePage
 {
@@ -14,7 +14,7 @@ class TreeCategory extends TreePage
 
     public function getItems(): array
     {
-        return Category::with("children")->whereNull("parent_id")->orderBy("order")->get()->toArray();
+        return Category::with('children')->whereNull('parent_id')->orderBy('order')->get()->toArray();
     }
 
     public function getMaxDepth(): int

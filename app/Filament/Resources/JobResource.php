@@ -2,17 +2,16 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\JobResource\Pages;
 use App\Models\Job;
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\JobResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\JobResource\RelationManagers;
 
 class JobResource extends Resource
 {
@@ -55,7 +54,7 @@ class JobResource extends Resource
                     ->relationship('age', 'years'),
                 Select::make('requirements')
                     ->multiple()
-                    ->relationship('requirements', 'title')
+                    ->relationship('requirements', 'title'),
             ]);
     }
 

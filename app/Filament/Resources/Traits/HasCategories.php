@@ -5,13 +5,12 @@ namespace App\Filament\Resources\Traits;
 use App\Models\Category;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TagsColumn;
-use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Collection;
 
 trait HasCategories
-
 {
     public static function formCategoriesField(): Select
     {
@@ -58,7 +57,7 @@ trait HasCategories
 
                         self::categoriesField(),
 
-                    ])->columns(2)
+                    ])->columns(2),
             ]);
     }
 

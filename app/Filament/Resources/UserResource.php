@@ -2,17 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use App\Models\User;
-use Filament\Tables;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\User;
+use Filament\Forms;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
 use JosefBehr\FilamentSpatieMediaLibraryCroppie\Components\SpatieMediaLibraryCroppie;
+use Spatie\MediaLibrary\Conversions\ImageGenerators\Pdf;
 
 class UserResource extends Resource
 {
@@ -39,29 +38,19 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255)
-                    ->disabled(),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255)
-                    ->disabled(),
-                Forms\Components\DateTimePicker::make('email_verified_at')->disabled(),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
-                SpatieMediaLibraryCroppie::make('image')
-                    ->boundaryWidth('100%')
-                    ->boundaryHeight('600')
-                    ->viewportWidth('400')
-                    ->viewportHeight('400')
-                    ->showZoomer()
-                    //->avatar()
+                SpatieMediaLibraryCroppie::make('profile-photo')
+                    ->boundaryWidth('472')
+                    ->boundaryHeight('590')
+                    ->viewportWidth('472')
+                    ->viewportHeight('590')
+                    ->imageResizeTargetWidth('472')
+                    ->imageResizeTargetHeight('590')
+                    ->imageResizeMode('cover')
+                    //->imageCropAspectRatio('3:2')
+                    //->showZoomer()
                     ->modalSize('6xl')
-                    ->modalHeading("Crop Background Image"),
+                    ->modalHeading('Crop Profile Photo')
+                    ->collection('photos'),
             ]);
     }
 
@@ -73,12 +62,6 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -86,7 +69,11 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('Photo Template')
+                    ->url(fn (User $record): string => route('user.show', $record))
+                    ->color('warning')->size('lg')->icon('heroicon-o-document-download')
+
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -115,9 +102,6 @@ class UserResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+        return parent::getEloquentQuery()->where('created_by', auth()->id())->orWhere('updated_by', auth()->id());
     }
 }

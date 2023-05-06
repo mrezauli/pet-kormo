@@ -2,16 +2,15 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\AgeResource\Pages;
 use App\Models\Age;
 use Filament\Forms;
-use Filament\Tables;
 use Filament\Resources\Form;
-use Filament\Resources\Table;
 use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\AgeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use JosefBehr\FilamentSpatieMediaLibraryCroppie\Components\SpatieMediaLibraryCroppie;
 
 class AgeResource extends Resource
 {
@@ -38,12 +37,6 @@ class AgeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('years'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

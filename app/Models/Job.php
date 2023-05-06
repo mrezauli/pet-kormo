@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Company;
-use App\Models\Category;
-use App\Models\Location;
-use Spatie\MediaLibrary\HasMedia;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\MediaCollections\File;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\File;
 
 class Job extends Model implements HasMedia
 {
@@ -20,7 +17,7 @@ class Job extends Model implements HasMedia
 
     protected $fillable = [
         'location_id', 'company_id', 'requirement_id', 'designation_id', 'grade_id', 'age_id',
-        'title', 'short_description', 'full_description', 'job_nature', 'address', 'top_rated', 'count_of_post'
+        'title', 'short_description', 'full_description', 'job_nature', 'address', 'top_rated', 'count_of_post',
     ];
 
     public function registerMediaCollections(): void
@@ -35,8 +32,6 @@ class Job extends Model implements HasMedia
 
     /**
      * Get the location that owns the Job
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function location(): BelongsTo
     {
@@ -45,8 +40,6 @@ class Job extends Model implements HasMedia
 
     /**
      * Get the company that owns the Job
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company(): BelongsTo
     {
@@ -55,8 +48,6 @@ class Job extends Model implements HasMedia
 
     /**
      * Get the designation that owns the Job
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function designation(): BelongsTo
     {
@@ -65,8 +56,6 @@ class Job extends Model implements HasMedia
 
     /**
      * Get the grade that owns the Job
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function grade(): BelongsTo
     {
@@ -75,8 +64,6 @@ class Job extends Model implements HasMedia
 
     /**
      * Get the age that owns the Job
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function age(): BelongsTo
     {
@@ -90,8 +77,6 @@ class Job extends Model implements HasMedia
 
     /**
      * The requirements that belong to the Job
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function requirements(): BelongsToMany
     {
